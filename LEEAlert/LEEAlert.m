@@ -104,6 +104,9 @@ typedef NS_ENUM(NSInteger, LEEBackgroundStyle) {
 @property (nonatomic, strong) UIColor *modelActionSheetCancelActionSpaceColor;
 @property (nonatomic, assign) CGFloat modelActionSheetCancelActionSpaceWidth;
 @property (nonatomic, assign) CGFloat modelActionSheetBottomMargin;
+/// 新增是否忽略底部安全边距
+@property (nonatomic, assign) BOOL ignoreSafeBottom;
+
 
 @property (nonatomic, strong) LEEPresentation* modelPresentation;
 
@@ -166,7 +169,7 @@ typedef NS_ENUM(NSInteger, LEEBackgroundStyle) {
         _modelCornerRadii = CornerRadiiMake(13.0f, 13.0f, 13.0f, 13.0f); //默认圆角半径
         _modelActionSheetHeaderCornerRadii = CornerRadiiMake(13.0f, 13.0f, 13.0f, 13.0f); //默认圆角半径
         _modelActionSheetCancelActionCornerRadii = CornerRadiiMake(13.0f, 13.0f, 13.0f, 13.0f); //默认圆角半径
-        
+        _ignoreSafeBottom = NO;
         
         if (@available(iOS 13.0, *)) {
             _modelUserInterfaceStyle = UIUserInterfaceStyleUnspecified; //默认支持全部样式
@@ -850,6 +853,14 @@ typedef NS_ENUM(NSInteger, LEEBackgroundStyle) {
         return self;
     };
     
+}
+/// 新增忽略底部安全边距
+- (LEEConfigToIgnoreSafeBottom)LeeIgnoreSafeBottom {
+    return ^(BOOL ignoreSafeBottom) {
+        
+        self.ignoreSafeBottom = ignoreSafeBottom;
+        return self;
+    };
 }
 
 #pragma mark LazyLoading
@@ -3315,7 +3326,12 @@ CGPathRef _Nullable LEECGPathCreateWithRoundedRect(CGRect bounds, CornerRadii co
     
     containerFrame.size.width = actionSheetViewMaxWidth;
     
-    containerFrame.size.height = contentViewFrame.size.height + cancelActionTotalHeight + VIEWSAFEAREAINSETS(self.view).bottom + self.config.modelActionSheetBottomMargin;
+    /// 新增忽略底部安全边距
+    if (self.config.ignoreSafeBottom) {
+        containerFrame.size.height = contentViewFrame.size.height + cancelActionTotalHeight + self.config.modelActionSheetBottomMargin;
+    } else {
+        containerFrame.size.height = contentViewFrame.size.height + cancelActionTotalHeight + VIEWSAFEAREAINSETS(self.view).bottom + self.config.modelActionSheetBottomMargin;
+    }
     
     containerFrame.origin.x = (viewWidth - actionSheetViewMaxWidth) * 0.5f;
     

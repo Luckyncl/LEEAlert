@@ -153,6 +153,11 @@ typedef LEEBaseConfigModel * _Nonnull (^LEEConfigToBlockAndBlock)(void(^)(void (
 typedef LEEBaseConfigModel * _Nonnull (^LEEConfigToStatusBarStyle)(UIStatusBarStyle style);
 API_AVAILABLE(ios(13.0))
 typedef LEEBaseConfigModel * _Nonnull (^LEEConfigToUserInterfaceStyle)(UIUserInterfaceStyle style);
+
+
+/// 新增的 忽略底部安全边距
+typedef LEEBaseConfigModel * _Nonnull (^LEEConfigToIgnoreSafeBottom)(BOOL);
+
 NS_ASSUME_NONNULL_END
 
 #endif /* LEEAlertHelper_h */
