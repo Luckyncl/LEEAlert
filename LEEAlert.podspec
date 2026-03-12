@@ -1,7 +1,8 @@
 Pod::Spec.new do |s|
 
 s.name         = "LEEAlert"
-s.version      = "1.8.2"
+#s.version      = "1.8.2"
+s.version      = "9.8.2"
 s.summary      = "优雅的Alert ActionSheet"
 
 s.homepage     = "https://github.com/lixiang1994/LEEAlert"

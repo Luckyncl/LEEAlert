@@ -3108,6 +3108,12 @@ CGPathRef _Nullable LEECGPathCreateWithRoundedRect(CGRect bounds, CornerRadii co
         
         _itemsScrollView.bounces = NO;
         
+        if (@available(iOS 26.0, *)) {
+            _itemsScrollView.bottomEdgeEffect.hidden = true;
+        } else {
+            // Fallback on earlier versions
+        }
+        
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerTapAction:)];
         
         tap.numberOfTapsRequired = 1;
