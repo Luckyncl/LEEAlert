@@ -2378,7 +2378,7 @@ CGPathRef _Nullable LEECGPathCreateWithRoundedRect(CGRect bounds, CornerRadii co
         
     } else {
         
-        alertViewMaxHeight -= ABS(offset.y);
+//        alertViewMaxHeight -= ABS(offset.y);
         
         CGRect contentViewFrame = self.contentView.frame;
         
